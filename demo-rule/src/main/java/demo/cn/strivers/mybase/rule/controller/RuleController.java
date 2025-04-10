@@ -6,6 +6,7 @@ import cn.strivers.mybase.rule.MyRulesEngine;
 import cn.strivers.mybase.rule.api.Facts;
 import demo.cn.strivers.mybase.rule.config.MyRules;
 import demo.cn.strivers.mybase.rule.rule.MyRuleConfig;
+import demo.cn.strivers.mybase.rule.svc.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RuleController {
     @Autowired
     private MyRules myRules;
+
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping("/testRules")
     public Result test() {
@@ -33,7 +37,7 @@ public class RuleController {
     public Result test1(@RequestParam(name = "number") Integer number) {
         Facts facts = new Facts();
         facts.put("number", number);
-        //facts.put("System", System.class);
+        facts.put("studentSvc", studentService);
         MyRulesEngine rulesEngine = MyRuleConfig.rulesEngineMap.get(1);
         rulesEngine.fire(facts);
         return Result.success();

@@ -15,11 +15,25 @@ public class TestMain {
         // 创建一个变量上下文
         Map<String, Object> vars = new HashMap<>();
         vars.put("System", System.class); // 添加 System 类
+        vars.put("a", "abc");
+        vars.put("testMain", new TestMain());
+        vars.put("testMain1", TestMain.class);
 
         // 编译表达式
-        Serializable compiledExpression = MVEL.compileExpression("System.out.println('Hello, MVEL!');");
+        Serializable compiledExpression = MVEL.compileExpression(
+                "System.out.println('Hello, MVEL!');" +
+                "testMain.sayHello(a);" +
+                        "testMain1.sayHello1(a);");
 
         // 执行编译后的表达式
         MVEL.executeExpression(compiledExpression, vars);
+    }
+
+    public void sayHello(String name){
+        System.out.println("Hello World!" + name);
+    }
+
+    public static void sayHello1(String name){
+        System.out.println("Hello1 World!" + name);
     }
 }
