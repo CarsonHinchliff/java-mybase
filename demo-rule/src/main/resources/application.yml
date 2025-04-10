@@ -1,0 +1,33 @@
+appname: rule
+
+
+server:
+  port: 88
+  servlet:
+    context-path: /${appname}
+  tomcat:
+    accept-count: 100
+    max-threads: 600
+
+spring:
+  application:
+    name: ${appname}
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/rule_engine_db01?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: sa1234
+  jpa:
+    show-sql: true
+    open-in-view: false
+
+jasypt:
+  encryptor:
+    password: qwer1234tyu
+
+#log
+logging:
+  level:
+    root: info
+    cn:
+      strivers: debug
+

@@ -1,0 +1,63 @@
+appName: gateway
+server:
+  port: 9999
+
+mybase:
+  tenant: {"peso.finchsys.com":"1","devloan4.finchinfo.cn":"2","localhost":"3","192.168.1.8":"4"}
+spring:
+  application:
+    name: ${appName}
+  redis:
+    database: 11
+    host: everyone.finchinfo.cn
+    port: 16379
+    password:
+    lettuce:
+      pool:
+        max-active: 500
+        max-wait: -1ms
+        max-idle: 500
+        min-idle: 0
+  cloud:
+    consul:
+      host: everyone.finchinfo.cn
+      port: 28500
+      discovery:
+        register: true
+        enabled: true
+        heartbeat:
+          enabled: true
+        prefer-ip-address: true
+
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+        - id: order
+          uri: lb://order
+          predicates:
+          - Path=/order/**
+
+        - id: user
+          uri: lb://order
+          predicates:
+          - Path=/user/**
+
+#Token校验过滤器 跳过接口
+auth:
+  skip:
+    wan:
+      user: /help0,/help1
+      order: /help2,/help3
+      cms: /help4,/help5
+    lan:
+      user: /help6,/help7
+      order: /getBankList,/getOrder
+      cms: /help10,/help11
+
+logging:
+  level:
+    root: info
+    cn:
+      strivers: debug

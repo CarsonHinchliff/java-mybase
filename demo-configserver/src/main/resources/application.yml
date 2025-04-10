@@ -1,0 +1,27 @@
+server:
+  port: 29999
+
+spring:
+  security:
+    user:
+      name: test
+      password: 123456
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          basedir: /root/projects/config/data/config
+          uri: http://git.finchinfo.cn/config/loan.git
+          search-paths: /**
+          username: configtest
+          password: 8UHB9ijn
+          force-pull: true
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%thread]: %m%n"
+  level:
+    root: info
+
+

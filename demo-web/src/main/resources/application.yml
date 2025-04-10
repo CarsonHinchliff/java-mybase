@@ -1,0 +1,55 @@
+appname: web
+
+server:
+  port: 88
+  servlet:
+    context-path: /${appname}
+  tomcat:
+    accept-count: 100
+    max-threads: 600
+
+mybase:
+  # 是否生产环境 默认：false
+  isProd: false
+
+
+spring:
+  application:
+    name: ${appname}
+  datasource:
+    url: jdbc:mysql://rds.finchinfo.cn:3306/test_loandb?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: test
+    password: ENC(zudg3PTIEsW//PqJOkVaOUVLTirIR7li)
+  jpa:
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+# 需要使用多租户时开启
+#        connection:
+#          url: ${spring.datasource.url}
+#          username: ${spring.datasource.username}
+#          password: ${spring.datasource.password}
+#        multiTenancy: SCHEMA
+#        tenant_identifier_resolver: demo.cn.strivers.mybase.web.tenant.TenantResolver
+#        multi_tenant_connection_provider: demo.cn.strivers.mybase.web.tenant.TenantConnectionProvider
+#        tenantSchema: {1: test_loandb,2:dev_loandb}
+  messages:
+    basename: i18n/messages
+
+  redis:
+    host: everyone.finchinfo.cn
+    port: 16379
+
+
+jasypt:
+  encryptor:
+    password: qwer1234tyu
+
+#log
+logging:
+  level:
+    root: info
+    cn:
+      strivers: debug
+
