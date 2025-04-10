@@ -18,10 +18,6 @@ public class MVELAction implements Action {
      * 表达式
      */
     private String expression;
-    /**
-     * 编译表达式
-     */
-    private Serializable compiledExpression;
 
     private ParserContext parserContext;
 
